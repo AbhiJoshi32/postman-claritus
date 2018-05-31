@@ -18,6 +18,7 @@ package com.android.example.github.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.claritusconsulting.postman.ui.apireq.ApiReqViewModel
 import com.claritusconsulting.postman.ui.history.HistoryViewModel
 
 import com.claritusconsulting.postman.viewmodel.PostmanViewModelFactory
@@ -32,7 +33,13 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(HistoryViewModel::class)
-    abstract fun bindUserViewModel(userViewModel: HistoryViewModel): ViewModel
+    abstract fun bindHistoryViewModel(historyViewModel: HistoryViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ApiReqViewModel::class)
+    abstract fun bindApiViewModel(apiReqViewModel: ApiReqViewModel): ViewModel
+
 
     @Binds
     abstract fun bindViewModelFactory(factory: PostmanViewModelFactory): ViewModelProvider.Factory
