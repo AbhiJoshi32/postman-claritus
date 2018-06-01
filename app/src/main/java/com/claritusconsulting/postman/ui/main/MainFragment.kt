@@ -23,6 +23,9 @@ class MainFragment : Fragment() {
 
         setupViewPager(main_pager)
         main_tabs.setupWithViewPager(main_pager)
+        addReqFab.setOnClickListener{
+            //TODO open api frag
+        }
         return view
     }
 
