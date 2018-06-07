@@ -1,31 +1,28 @@
 package com.claritusconsulting.postman.db
 
 import android.arch.persistence.room.TypeConverter
-import com.claritusconsulting.postman.data.Header
 import com.google.gson.reflect.TypeToken
 import com.google.gson.Gson
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 object PostmanTypeConverters {
-
     private val gson = Gson()
     @TypeConverter
     @JvmStatic
-    fun stringToSomeObjectList(data: String?): List<Header> {
+    fun stringToSomeObjectList(data: String?): Map<String, String> {
         if (data == "null") {
-            return Collections.emptyList()
+            return Collections.emptyMap()
         }
 
-        val listType = object : TypeToken<ArrayList<Header>>() {}.type
+        val listType = object : TypeToken<Map<String,String>>() {}.type
 
         return gson.fromJson(data, listType)
     }
 
     @TypeConverter
     @JvmStatic
-    fun someObjectListToString(someObjects: List<Header>): String {
+    fun someObjectListToString(someObjects: Map<String,String>): String {
         return gson.toJson(someObjects)
     }
 }

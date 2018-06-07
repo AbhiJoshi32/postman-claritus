@@ -19,18 +19,23 @@ package com.claritusconsulting.postman.db
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
-import com.claritusconsulting.postman.data.Request
+import android.arch.persistence.room.TypeConverters
+import com.claritusconsulting.postman.data.ApiRequest
+import com.claritusconsulting.postman.data.ApiResponse
 
 /**
  * Main database description.
  */
 @Database(
     entities = [
-        Request::class],
-        version = 3,
+        ApiRequest::class,
+        ApiResponse::class],
+        version = 5,
         exportSchema = false
 )
+@TypeConverters(PostmanTypeConverters::class)
 abstract class PostmanDb : RoomDatabase() {
 
     abstract fun requetDao(): RequestDao
+    abstract fun responseDao(): ResponseDao
 }

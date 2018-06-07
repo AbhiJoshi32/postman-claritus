@@ -21,8 +21,10 @@ import android.arch.persistence.room.Room
 import com.android.example.github.di.ViewModelModule
 import com.claritusconsulting.postman.db.PostmanDb
 import com.claritusconsulting.postman.db.RequestDao
+import com.claritusconsulting.postman.db.ResponseDao
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
 @Module(includes = [ViewModelModule::class])
@@ -38,7 +40,20 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideUserDao(db: PostmanDb): RequestDao{
+    fun provideReqDao(db: PostmanDb): RequestDao{
         return db.requetDao()
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideResDao(db: PostmanDb): ResponseDao {
+        return db.responseDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providesOkHttpClient():OkHttpClient {
+        return OkHttpClient()
     }
 }

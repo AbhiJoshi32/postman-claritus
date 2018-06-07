@@ -16,8 +16,11 @@
 
 package com.claritusconsulting.postman.di
 
+import com.claritusconsulting.postman.ui.api.ApiFragment
 import com.claritusconsulting.postman.ui.apireq.ApiReqFragment
+import com.claritusconsulting.postman.ui.apires.ApiRespFragment
 import com.claritusconsulting.postman.ui.history.HistoryFragment
+import com.claritusconsulting.postman.ui.main.MainFragment
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -29,4 +32,10 @@ abstract class FragmentBuildersModule {
     abstract fun contributeHistoryFragment(): HistoryFragment
     @ContributesAndroidInjector
     abstract fun contributeApiReqFragment(): ApiReqFragment
+    @ContributesAndroidInjector
+    abstract fun contributeMainFragment(): MainFragment
+    @ContributesAndroidInjector
+    abstract fun contributeRespFragment(): ApiRespFragment
+    @ContributesAndroidInjector
+    abstract fun contributeApiFragment(): ApiFragment
 }

@@ -6,15 +6,13 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import com.claritusconsulting.postman.data.ApiRequest
+import com.claritusconsulting.postman.data.ApiResponse
 
 @Dao
-interface RequestDao {
+interface ResponseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(apiRequest: ApiRequest) : Long
+    fun insert(apiResponse: ApiResponse) : Long
 
-    @Query("SELECT * FROM apirequest")
-    fun findAll(): LiveData<List<ApiRequest>>
-
-    @Query("SELECT * FROM apirequest WHERE requestId = :id")
-    fun findById(id: Long): LiveData<ApiRequest>
+    @Query("SELECT * FROM apiresponse WHERE requestId = :id")
+    fun findById(id:String): LiveData<List<ApiResponse>>
 }

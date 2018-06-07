@@ -55,6 +55,7 @@ dependencies {
     // optional - Test helpers for LiveData
     testImplementation "android.arch.core:core-testing:$lifecycle_version"
 
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
     implementation 'com.jakewharton.timber:timber:4.7.0'
 

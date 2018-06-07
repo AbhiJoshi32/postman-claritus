@@ -2,7 +2,7 @@ package com.claritusconsulting.postman.repo
 
 import android.arch.lifecycle.LiveData
 import com.claritusconsulting.postman.AppExecutors
-import com.claritusconsulting.postman.data.Request
+import com.claritusconsulting.postman.data.ApiRequest
 import com.claritusconsulting.postman.db.RequestDao
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,12 +14,12 @@ class RequestRepo @Inject constructor(
         private val appExecutors: AppExecutors,
         private val reqDao: RequestDao
 ) {
-    fun loadRequests(): LiveData<List<Request>> {
+    fun loadRequests(): LiveData<List<ApiRequest>> {
         return reqDao.findAll();
     }
-    fun insertRequest(request: Request) {
+    fun insertRequest(apiRequest: ApiRequest) {
         appExecutors.diskIO().execute {
-            reqDao.insert(request)
+            reqDao.insert(apiRequest)
         }
     }
 }

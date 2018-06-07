@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.claritusconsulting.postman.R
-import com.claritusconsulting.postman.data.Request
+import com.claritusconsulting.postman.data.ApiRequest
 import kotlinx.android.synthetic.main.history_item.view.*
 
-class HistoryAdapter(val items: List<Request>, val context: Context?) : RecyclerView.Adapter<ViewHolder>() {
+class HistoryAdapter(val items: List<ApiRequest>, val context: Context?, val clickListener: (ApiRequest)->Unit) : RecyclerView.Adapter<ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.methodText.text = items.get(position).method
         holder.urlText.text = items.get(position).url
+        holder.containerView.setOnClickListener{clickListener(items[position])}
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,7 +28,7 @@ class HistoryAdapter(val items: List<Request>, val context: Context?) : Recycler
 }
 
 class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
-    // Holds the TextView that will add each animal to
     val methodText= view.methodText
     val urlText = view.urlText
+    val containerView = view
 }
