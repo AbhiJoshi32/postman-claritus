@@ -5,14 +5,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.claritusconsulting.postman.R
 import com.claritusconsulting.postman.data.ApiRequest
 import kotlinx.android.synthetic.main.history_item.view.*
 
-class HistoryAdapter(val items: List<ApiRequest>, val context: Context?, val clickListener: (ApiRequest)->Unit) : RecyclerView.Adapter<ViewHolder>() {
+class HistoryAdapter(private val items: List<ApiRequest>, val context: Context?, private val clickListener: (ApiRequest)->Unit) : RecyclerView.Adapter<ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.methodText.text = items.get(position).method
-        holder.urlText.text = items.get(position).url
+        holder.methodText.text = items[position].method
+        holder.urlText.text = items[position].url
         holder.containerView.setOnClickListener{clickListener(items[position])}
     }
 
@@ -28,7 +29,7 @@ class HistoryAdapter(val items: List<ApiRequest>, val context: Context?, val cli
 }
 
 class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
-    val methodText= view.methodText
-    val urlText = view.urlText
+    val methodText:TextView = view.methodText
+    val urlText:TextView = view.urlText
     val containerView = view
 }

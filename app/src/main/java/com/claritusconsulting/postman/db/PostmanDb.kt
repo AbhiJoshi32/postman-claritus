@@ -30,12 +30,12 @@ import com.claritusconsulting.postman.data.ApiResponse
     entities = [
         ApiRequest::class,
         ApiResponse::class],
-        version = 5,
+        version = 6,
         exportSchema = false
 )
 @TypeConverters(PostmanTypeConverters::class)
 abstract class PostmanDb : RoomDatabase() {
 
-    abstract fun requetDao(): RequestDao
+    abstract fun requestDao(): RequestDao
     abstract fun responseDao(): ResponseDao
 }

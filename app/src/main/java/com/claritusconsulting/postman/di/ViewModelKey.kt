@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.di
+package com.claritusconsulting.postman.di
 
 import android.arch.lifecycle.ViewModel
 import dagger.MapKey

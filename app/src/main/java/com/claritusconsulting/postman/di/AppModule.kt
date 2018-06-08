@@ -18,7 +18,6 @@ package com.claritusconsulting.postman.di
 
 import android.app.Application
 import android.arch.persistence.room.Room
-import com.android.example.github.di.ViewModelModule
 import com.claritusconsulting.postman.db.PostmanDb
 import com.claritusconsulting.postman.db.RequestDao
 import com.claritusconsulting.postman.db.ResponseDao
@@ -33,7 +32,7 @@ class AppModule {
     @Provides
     fun provideDb(app: Application): PostmanDb {
         return Room
-            .databaseBuilder(app, PostmanDb::class.java, "github.db")
+            .databaseBuilder(app, PostmanDb::class.java, "postman.db")
             .fallbackToDestructiveMigration()
             .build()
     }
@@ -41,7 +40,7 @@ class AppModule {
     @Singleton
     @Provides
     fun provideReqDao(db: PostmanDb): RequestDao{
-        return db.requetDao()
+        return db.requestDao()
     }
 
 

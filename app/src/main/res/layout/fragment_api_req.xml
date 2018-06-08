@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.apireq.ApiReqFragment">
+    tools:context=".ui.api.apireq.ApiReqFragment">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/sendReq"
@@ -30,7 +30,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingBottom="8dp">
 
             <android.support.design.widget.TextInputLayout
@@ -50,7 +50,7 @@
                     android:id="@+id/urlEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="URL" />
+                    android:hint="@string/url_hint" />
             </android.support.design.widget.TextInputLayout>
 
             <Spinner
@@ -70,7 +70,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Method"
+                android:text="@string/method_label"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
@@ -116,7 +116,8 @@
                             android:src="@drawable/ic_action_up"
                             android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/constant" />
 
                         <ImageView
                             android:id="@+id/headerDown"
@@ -127,7 +128,8 @@
                             android:layout_marginRight="8dp"
                             android:src="@drawable/ic_action_down"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/constant" />
                     </android.support.constraint.ConstraintLayout>
 
                     <TextView
@@ -137,7 +139,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="Header"
+                        android:text="@string/header_title"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -163,9 +165,9 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginLeft="8dp"
                             android:layout_marginTop="8dp"
-                            android:text="Please fill fields to add Header"
+                            android:text="@string/header_error"
                             android:textColor="@android:color/holo_red_light"
-                            android:textSize="10sp"
+                            android:textSize="12sp"
                             android:visibility="gone"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/headerTable" />
@@ -180,7 +182,7 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
                             android:layout_marginRight="8dp"
-                            android:text="Add"
+                            android:text="@string/table_add"
                             android:textColor="@color/colorAccent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -200,25 +202,29 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                             <TableRow
+
                                 android:id="@+id/tableRow1"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                tools:ignore="UselessParent">
 
                                 <EditText
                                     android:id="@+id/key1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:ems="10"
-                                    android:hint="Key"
-                                    android:inputType="textPersonName" />
+                                    android:hint="@string/key"
+                                    android:inputType="textPersonName"
+                                    tools:ignore="Autofill" />
 
                                 <EditText
                                     android:id="@+id/val1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:ems="10"
-                                    android:hint="Value"
-                                    android:inputType="textPersonName" />
+                                    android:hint="@string/value"
+                                    android:inputType="textPersonName"
+                                    tools:ignore="Autofill" />
 
                                 <ImageButton
                                     android:id="@+id/removeHeader"
@@ -228,12 +234,11 @@
                                     android:paddingLeft="36dp"
                                     android:paddingTop="4dp"
                                     android:paddingRight="36dp"
-                                    android:src="@drawable/ic_action_remove" />
-
+                                    android:src="@drawable/ic_action_remove"
+                                    android:contentDescription="@string/constant" />
                             </TableRow>
                         </TableLayout>
                     </android.support.constraint.ConstraintLayout>
-
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>
 
@@ -279,7 +284,8 @@
                             android:src="@drawable/ic_action_up"
                             android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/constant" />
 
                         <ImageView
                             android:id="@+id/bodydown"
@@ -290,7 +296,8 @@
                             android:layout_marginRight="8dp"
                             android:src="@drawable/ic_action_down"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/constant" />
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -338,13 +345,15 @@
                                 android:layout_marginEnd="24dp"
                                 android:layout_marginRight="8dp"
                                 android:background="@drawable/text_area"
-                                android:gravity="top|left"
+                                android:gravity="top|start"
                                 android:inputType="textMultiLine"
                                 android:lines="5"
+                                android:hint="@string/post_body"
                                 android:scrollHorizontally="false"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/rawTypeSpinner" />
+                                app:layout_constraintTop_toBottomOf="@+id/rawTypeSpinner"
+                                tools:ignore="Autofill" />
                         </android.support.constraint.ConstraintLayout>
 
                         <Spinner
@@ -367,7 +376,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/bodySpinner"
                             tools:visibility="visible">
 
-
                             <TextView
                                 android:id="@+id/bodyFormError"
                                 android:layout_width="wrap_content"
@@ -375,9 +383,9 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
-                                android:text="Please fill fields to add Body"
+                                android:text="@string/body_form_error"
                                 android:textColor="@android:color/holo_red_light"
-                                android:textSize="10sp"
+                                android:textSize="12sp"
                                 android:visibility="gone"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/bodyTable" />
@@ -392,7 +400,7 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
-                                android:text="Add"
+                                android:text="@string/table_add"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/bodyFormError" />
@@ -412,7 +420,8 @@
                                 <TableRow
                                     android:id="@+id/bodyTableRow"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
+                                    android:layout_height="wrap_content"
+                                    tools:ignore="UselessParent">
 
                                     <EditText
                                         android:id="@+id/bkey1"
@@ -420,7 +429,8 @@
                                         android:layout_height="wrap_content"
                                         android:ems="10"
                                         android:inputType="textPersonName"
-                                        android:text="Key" />
+                                        android:hint="@string/key"
+                                        tools:ignore="Autofill,TooDeepLayout" />
 
                                     <EditText
                                         android:id="@+id/bval1"
@@ -428,7 +438,8 @@
                                         android:layout_height="wrap_content"
                                         android:ems="10"
                                         android:inputType="textPersonName"
-                                        android:text="Value" />
+                                        android:hint="@string/value"
+                                        tools:ignore="Autofill" />
 
                                     <ImageButton
                                         android:id="@+id/bremoveRow"
@@ -438,7 +449,8 @@
                                         android:paddingLeft="36dp"
                                         android:paddingTop="4dp"
                                         android:paddingRight="36dp"
-                                        android:src="@drawable/ic_action_remove" />
+                                        android:src="@drawable/ic_action_remove"
+                                        android:contentDescription="@string/constant" />
 
                                 </TableRow>
                             </TableLayout>
@@ -452,7 +464,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="Body"
+                        android:text="@string/body_header"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -472,5 +484,4 @@
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
-
 </android.support.constraint.ConstraintLayout>

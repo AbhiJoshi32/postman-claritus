@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.example.github.di
+package com.claritusconsulting.postman.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.claritusconsulting.postman.ui.api.ApiViewModel
-import com.claritusconsulting.postman.ui.apireq.ApiReqViewModel
-import com.claritusconsulting.postman.ui.history.HistoryViewModel
+import com.claritusconsulting.postman.ui.main.history.HistoryViewModel
 import com.claritusconsulting.postman.ui.main.MainViewModel
 
 import com.claritusconsulting.postman.viewmodel.PostmanViewModelFactory
@@ -36,11 +35,6 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HistoryViewModel::class)
     abstract fun bindHistoryViewModel(historyViewModel: HistoryViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(ApiReqViewModel::class)
-    abstract fun bindApiReqViewModel(apiReqViewModel: ApiReqViewModel): ViewModel
 
     @Binds
     @IntoMap

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.apires.ApiRespFragment">
+    tools:context=".ui.api.apires.ApiRespFragment">
 
     <ProgressBar
         android:id="@+id/responseProgress"
@@ -66,7 +66,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginLeft="8dp"
                             android:layout_marginTop="8dp"
-                            android:text="URL"
+                            android:text="@string/url_label"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,7 +90,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginLeft="8dp"
                             android:layout_marginTop="8dp"
-                            android:text="Code"
+                            android:text="@string/code_label"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -133,7 +133,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginLeft="8dp"
                             android:layout_marginTop="8dp"
-                            android:text="Headers"
+                            android:text="@string/headers_heading"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -179,7 +179,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginLeft="8dp"
                             android:layout_marginTop="8dp"
-                            android:text="Response"
+                            android:text="@string/response_header"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -206,11 +206,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:text="No respone. Send request to see response"
+                android:text="@string/no_response"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

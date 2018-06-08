@@ -1,4 +1,4 @@
-package com.claritusconsulting.postman.ui.apires
+package com.claritusconsulting.postman.ui.api.apires
 
 
 import android.arch.lifecycle.Observer
@@ -39,8 +39,7 @@ class ApiRespFragment : Fragment(), Injectable {
             responseProgress.visibility = View.GONE
             if (it?.code == -1) {
                 noResponseText.visibility = View.VISIBLE
-
-                noResponseText.text = "Cannot resolve hostname. Check the url or the connection"
+                noResponseText.text = getString(R.string.cant_connect_host)
             } else {
                 updateUi(it)
                 responseContainer.visibility = View.VISIBLE

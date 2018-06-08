@@ -17,9 +17,9 @@
 package com.claritusconsulting.postman.di
 
 import com.claritusconsulting.postman.ui.api.ApiFragment
-import com.claritusconsulting.postman.ui.apireq.ApiReqFragment
-import com.claritusconsulting.postman.ui.apires.ApiRespFragment
-import com.claritusconsulting.postman.ui.history.HistoryFragment
+import com.claritusconsulting.postman.ui.api.apireq.ApiReqFragment
+import com.claritusconsulting.postman.ui.api.apires.ApiRespFragment
+import com.claritusconsulting.postman.ui.main.history.HistoryFragment
 import com.claritusconsulting.postman.ui.main.MainFragment
 
 import dagger.Module

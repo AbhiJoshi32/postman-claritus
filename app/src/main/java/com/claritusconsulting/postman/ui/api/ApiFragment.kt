@@ -14,8 +14,8 @@ import android.view.ViewGroup
 import com.claritusconsulting.postman.R
 import com.claritusconsulting.postman.di.Injectable
 import com.claritusconsulting.postman.ui.adapters.ApiPagerAdapter
-import com.claritusconsulting.postman.ui.apireq.ApiReqFragment
-import com.claritusconsulting.postman.ui.apires.ApiRespFragment
+import com.claritusconsulting.postman.ui.api.apireq.ApiReqFragment
+import com.claritusconsulting.postman.ui.api.apires.ApiRespFragment
 import kotlinx.android.synthetic.main.fragment_api.*
 import javax.inject.Inject
 

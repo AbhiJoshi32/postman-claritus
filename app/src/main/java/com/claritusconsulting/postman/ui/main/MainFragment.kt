@@ -1,7 +1,6 @@
 package com.claritusconsulting.postman.ui.main
 
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -15,18 +14,15 @@ import com.claritusconsulting.postman.R
 import com.claritusconsulting.postman.di.Injectable
 import com.claritusconsulting.postman.ui.adapters.PostPagerAdapter
 import com.claritusconsulting.postman.ui.api.ApiFragment
-import com.claritusconsulting.postman.ui.apireq.ApiReqFragment
-import com.claritusconsulting.postman.ui.history.HistoryFragment
-import kotlinx.android.synthetic.main.activity_main.*
+import com.claritusconsulting.postman.ui.main.history.HistoryFragment
 import kotlinx.android.synthetic.main.fragment_main.*
-import timber.log.Timber
 import javax.inject.Inject
 
 
 class MainFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var mainViewModel:MainViewModel
+    private lateinit var mainViewModel:MainViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -54,7 +50,7 @@ class MainFragment : Fragment(), Injectable {
     private fun setupViewPager(main_pager: ViewPager?) {
         val postPagerAdapter = PostPagerAdapter(activity?.supportFragmentManager)
         val h1 = HistoryFragment()
-        postPagerAdapter.addFragment(h1,"History");
+        postPagerAdapter.addFragment(h1,"History")
 //        postPagerAdapter.addFragment(h1,"Collection")
         main_pager?.adapter = postPagerAdapter
     }

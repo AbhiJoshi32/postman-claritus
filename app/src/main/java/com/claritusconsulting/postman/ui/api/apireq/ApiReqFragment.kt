@@ -1,4 +1,4 @@
-package com.claritusconsulting.postman.ui.apireq
+package com.claritusconsulting.postman.ui.api.apireq
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
@@ -9,12 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.claritusconsulting.postman.AppExecutors
 
 import com.claritusconsulting.postman.R
 import com.claritusconsulting.postman.data.ApiRequest
-import com.claritusconsulting.postman.data.ApiResponse
-import com.claritusconsulting.postman.db.RequestDao
 import com.claritusconsulting.postman.di.Injectable
 import com.claritusconsulting.postman.ui.api.ApiFragment
 import com.claritusconsulting.postman.ui.api.ApiViewModel
@@ -33,10 +30,6 @@ class ApiReqFragment : Fragment(), Injectable {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
     lateinit var okHttpClient: OkHttpClient
-    @Inject
-    lateinit var appExecutors: AppExecutors
-    @Inject
-    lateinit var requestDao: RequestDao
     lateinit var apiViewModel: ApiViewModel
     val currentReq: ApiRequest = ApiRequest()
     private var headerBool = false
@@ -54,34 +47,36 @@ class ApiReqFragment : Fragment(), Injectable {
         apiViewModel = ViewModelProviders.of(apiFragment, viewModelFactory)
                 .get(ApiViewModel::class.java)
         apiViewModel.getReq().observe(this, Observer {
-            val occ = it?.url?.indexOf('/') ?: -1
-            if (occ != -1) {
-                val editedUrl = it?.url?.subSequence(occ+1,it.url.length)
-                urlEdit.setText(editedUrl)
-            }
-            var c = 0
-            for ((key,value) in it?.apiHeader.orEmpty()) {
-                if (c>0) {
-                    headerTable.addView(generateTableRow(key,value))
-                } else {
-                    key1.setText(key)
-                    val1.setText(value)
+            if (currentReq.url == "") {
+                val occ = it?.url?.indexOf('/') ?: -1
+                if (occ != -1) {
+                    val editedUrl = it?.url?.subSequence(occ + 1, it.url.length)
+                    urlEdit.setText(editedUrl)
                 }
-                c++
-            }
-            c=0
-            for ((key,value) in it?.apiBody.orEmpty()) {
-                if (c>0){
-                    bodyTable.addView(generateTableRow(key, value))
-                } else {
-                    bkey1.setText(key)
-                    bval1.setText(value)
+                var c = 0
+                for ((key, value) in it?.apiHeader.orEmpty()) {
+                    if (c > 0) {
+                        headerTable.addView(generateTableRow(key, value))
+                    } else {
+                        key1.setText(key)
+                        val1.setText(value)
+                    }
+                    c++
                 }
-                c++
-            }
-            when(it?.method) {
-                "GET" -> methodSpinner.setSelection(0)
-                "POST" -> methodSpinner.setSelection(1)
+                c = 0
+                for ((key, value) in it?.apiBody.orEmpty()) {
+                    if (c > 0) {
+                        bodyTable.addView(generateTableRow(key, value))
+                    } else {
+                        bkey1.setText(key)
+                        bval1.setText(value)
+                    }
+                    c++
+                }
+                when (it?.method) {
+                    "GET" -> methodSpinner.setSelection(0)
+                    "POST" -> methodSpinner.setSelection(1)
+                }
             }
 //            rawText.setText()
         })
@@ -89,7 +84,6 @@ class ApiReqFragment : Fragment(), Injectable {
     }
 
     private fun initSpinners() {
-
         val aa = ArrayAdapter(activity, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.method))
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         methodSpinner.adapter = aa
@@ -115,9 +109,9 @@ class ApiReqFragment : Fragment(), Injectable {
         httpAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         httpSpinner.adapter = httpAdapter
 
-        val bodyspinneradapter = ArrayAdapter(activity, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.body_type))
-        bodyspinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        bodySpinner.adapter = bodyspinneradapter
+        val bodySpinnerAdapter = ArrayAdapter(activity, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.body_type))
+        bodySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        bodySpinner.adapter = bodySpinnerAdapter
         bodySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
@@ -137,9 +131,9 @@ class ApiReqFragment : Fragment(), Injectable {
         }
 
         val raw = resources.getStringArray(R.array.raw_type)
-        val rawspinneradapter = ArrayAdapter(activity, android.R.layout.simple_spinner_item, raw)
-        rawspinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        rawTypeSpinner.adapter = rawspinneradapter
+        val rawSpinnerAdapter = ArrayAdapter(activity, android.R.layout.simple_spinner_item, raw)
+        rawSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        rawTypeSpinner.adapter = rawSpinnerAdapter
         methodSpinner.setSelection(0)
         bodySpinner.setSelection(0)
         rawTypeSpinner.setSelection(0)
@@ -294,32 +288,12 @@ class ApiReqFragment : Fragment(), Injectable {
     private fun callReq(request: Request) {
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call?, e: IOException?) {
-                val response = ApiResponse()
-                response.code = -1
-                apiViewModel.setResponse(response)
-
+                apiViewModel.failedRequest(currentReq.copy(requestId = null))
             }
             override fun onResponse(call: Call?, response: Response?) {
                 if (response != null) {
                     if (response.isSuccessful) {
-                        val body = response.body()?.string()
-                        val apiResponse = ApiResponse()
-                        apiResponse.code = response.code()
-                        apiResponse.method = currentReq.method
-                        val respHeaders = mutableMapOf<String,String>()
-                        val headers = response.headers()
-                        for (i in 0 until headers.size()) {
-                            respHeaders[headers.name(i)]= headers.value(i)
-                        }
-                        apiResponse.responseHeader = respHeaders
-                        apiResponse.responseTxt = body.orEmpty()
-                        apiResponse.url = currentReq.url
-                        appExecutors.diskIO().execute{
-                            val apiRequest = currentReq.copy(requestId = null)
-                            val id = requestDao.insert(apiRequest)
-                            apiResponse.requestId = id
-                            apiViewModel.setResponse(apiResponse)
-                        }
+                        apiViewModel.successResponse(response,currentReq)
                     }
                 }
             }
@@ -334,8 +308,10 @@ class ApiReqFragment : Fragment(), Injectable {
         t1.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.WRAP_CONTENT)
         e1.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT)
         e1.hint = "Key"
+        if (key!="") e1.setText(key)
         e2.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT)
         e2.hint = "Value"
+        if (value!="") e2.setText(value)
         b1.setImageResource(R.drawable.ic_action_remove)
         b1.setBackgroundResource(android.R.drawable.screen_background_light_transparent)
         b1.setPadding(36,4,36,0)

@@ -1,4 +1,4 @@
-package com.claritusconsulting.postman.ui
+package com.claritusconsulting.postman.ui.main.collection
 
 
 import android.os.Bundle
@@ -11,17 +11,9 @@ import com.claritusconsulting.postman.R
 
 
 class CollectionFragment : Fragment() {
-    companion object {
-        fun newInstance(): CollectionFragment {
-            return CollectionFragment()
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_collection, container, false)
     }
-
-
 }
