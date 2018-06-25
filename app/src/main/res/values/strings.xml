@@ -20,6 +20,7 @@
     <string name="headers_heading">Headers</string>
     <string name="response_header">Response</string>
     <string name="no_response">No respone. Send request to see response</string>
+    <string name="send_btn_text">Send</string>
 
     <string-array name="http">
         <item>http://</item>

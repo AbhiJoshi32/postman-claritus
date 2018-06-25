@@ -3,11 +3,13 @@ package com.claritusconsulting.postman.ui.api.apireq
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 
 import com.claritusconsulting.postman.R
@@ -50,7 +52,7 @@ class ApiReqFragment : Fragment(), Injectable {
             if (currentReq.url == "") {
                 val occ = it?.url?.indexOf('/') ?: -1
                 if (occ != -1) {
-                    val editedUrl = it?.url?.subSequence(occ + 1, it.url.length)
+                    val editedUrl = it?.url?.subSequence(occ + 2, it.url.length)
                     urlEdit.setText(editedUrl)
                 }
                 var c = 0
@@ -195,6 +197,11 @@ class ApiReqFragment : Fragment(), Injectable {
         }
 
         sendReq.setOnClickListener{
+            val v = activity?.currentFocus
+            if (v != null) {
+                val im = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                im.hideSoftInputFromWindow(v.windowToken,0)
+            }
             val url = httpSpinner.selectedItem.toString() + urlEdit.text.toString()
             val headerBuilder = Headers.Builder()
             val headerMap = mutableMapOf<String,String>()
